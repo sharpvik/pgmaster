@@ -14,8 +14,12 @@ var (
 	ErrNotFound = errors.New("master not found")
 )
 
+// Opens the [sql.DB] connection to provided host. ConnectFunc is specifically
+// made generic like that to allow for different connection variants
+// (e.g. different SSL modes).
 type ConnectFunc func(host string) (*sql.DB, error)
 
+// Find PostgreSQL master node with timeout using a generic [ConnectFunc].
 func Find(
 	connect ConnectFunc,
 	timeout time.Duration,
